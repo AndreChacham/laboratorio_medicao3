@@ -1,0 +1,8 @@
+Sprint 1
+
+Dupla: André Chacham e Brian Bruno
+
+1. Qual a quantidade de usuários do GitHub que utiliza StackOverflow?
+2. Existem perguntas no StackOverflow que possuem links para issues do GitHub?
+3. Issues do GitHub costumam referenciar respostas do StackOverflow?
+4. Issues do GitHub que possuem referências ao StackOverflow possuem muitas interações?

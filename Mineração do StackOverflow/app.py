@@ -7,10 +7,6 @@ def consultar_stackoverflow(issue):
     numeroIssue = issue[1]
     state = issue[2]
 
-    print(nameWithOwner)
-    print(numeroIssue)
-    print(state)
-
     stack_api = StackAPI("stackoverflow")
     result = stack_api.fetch("search/advanced",
         title=numeroIssue,
@@ -20,12 +16,11 @@ def consultar_stackoverflow(issue):
         page=1
     )
 
-    print(str(result))
-
+    with open('pesquisa_stack.json', 'a', encoding="utf-8") as file:
+        file.write(str(result) + ",\n")
 
 def main():
 
-    listaDeRespostas = []
     issues = list()
 
     with open('issues.csv', newline='') as f:
@@ -36,29 +31,21 @@ def main():
     i = 0
     total_issues = len(issues)
     rerun = list()
-    maximo_threads = 5
 
-    while i < total_issues:
+    while i < total_issues and i < 250:
         threads = list()
         print(str(len(threads)))
 
-        while len(threads) < maximo_threads:
-            issue = issues[i]
+        issue = issues[i]
 
-            try:
-                print(str(i) + '/' + str(total_issues))
-                x = threading.Thread(target=consultar_stackoverflow, args=(issue,))
-                threads.append(x)
-                x.start()
-                i += 1
+        try:
+            print(str(i) + '/' + str(total_issues))
+            consultar_stackoverflow(issue)
+            i += 1
 
-            except Exception as e:
-                rerun.append(issues[i])
-                #print(str(e))
-
-
-    for issue in rerun:
-        consultar_stackoverflow(issue)
+        except Exception as e:
+            rerun.append(issues[i])
+            #print(str(e))
 
 
 if __name__ == "__main__":

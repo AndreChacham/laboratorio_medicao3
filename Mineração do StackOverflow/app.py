@@ -16,8 +16,10 @@ def consultar_stackoverflow(issue):
         page=1
     )
 
-    with open('pesquisa_stack.json', 'a', encoding="utf-8") as file:
-        file.write(str(result) + ",\n")
+    pesquisaStack = open("pesquisa_stack.csv", 'a', newline='', encoding="utf-8")
+    pesquisa = csv.writer(pesquisaStack)
+    pesquisa.writerow(str(result.question(count++))+ ";" + str(result.answer(count++)) + ",\n")
+        
 
 def main():
 
@@ -31,6 +33,10 @@ def main():
     i = 0
     total_issues = len(issues)
     rerun = list()
+    
+    pesquisaStack = open("pesquisa_stack.csv", 'a', newline='', encoding="utf-8")
+    pesquisa = csv.writer(pesquisaStack)
+    pesquisa.writerow(('NameWithOwner', 'Questions', 'Answers'))
 
     while i < total_issues and i < 250:
         threads = list()
